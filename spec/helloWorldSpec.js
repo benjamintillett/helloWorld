@@ -5,32 +5,20 @@ var request = require('request');
 
 describe("hello World Server", function(){
 
-	 	it("knows 1 is not 2", function(){
-	 		expect(1).toEqual(1);
-	 	});
-
-	it("should respond with hello world", function(done) {
+	it("returns the correct status code", function(done) {
 	  request("http://localhost:3000/", function(error, response, body){
-	    console.log(error);
-	    expect(body).toEqual("hello world");
+	    expect(response.statusCode).toEqual(200);
 	    done();
 	  });
+	});
+
+	it("returns Hello World array",function(done) {
+		request("http://localhost:3000?number=3",function(error, response, body){
+			expect(body).toEqual(JSON.stringify(["Hello World", "Hello World", "Hello World"]));
+			done();
+		});	
 	});
 
 });
 
 
-
-
-
-
-// describe("Hello World Server", function() {
-//   describe("GET /", function() {
-//     it("returns status code 200", function(done) {
-//       request.get(base_url, function(error, response, body) {
-//         expect(response.statusCode).toBe(200);
-//         done();
-//       });
-//     });
-//   });
-// });
